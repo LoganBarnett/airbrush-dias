@@ -186,7 +186,6 @@ green lines are the same path but represent a loop between the 1 and 6 faces, or
 a lap around the entire cube. Red is before the loop, blue is the first loop,
 and green is the second lap.
 
-#+name: airbrush-dais--box-unfolded-painted-03
 #+begin_src scad :file box-unfolded-painted-03.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
 <<airbrush-dais--box-unfold>>
 <<airbrush-dais--wave>>
@@ -199,8 +198,9 @@ wave(length=waveLength, degrees=degrees, offset=90, c="blue");
 wave(length=waveLength, degrees=degrees, offset=180, c="green");
 #+end_src
 
-#+RESULTS: airbrush-dais--box-unfolded-painted-03
+#+RESULTS:
 [[file:box-unfolded-painted-03.png]]
+
 
 This approach means that there will be over-paint applied in some places. Maybe
 we can design around that, or adjust our sine wave such that the loops provide
