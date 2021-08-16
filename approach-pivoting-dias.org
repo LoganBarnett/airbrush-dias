@@ -18,7 +18,7 @@ We need some basic utilities to help out our diagrams and examples.
 ** Line
 We need to be able to draw a line. From [[https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Tips_and_Tricks#Drawing_%22lines%22_in_OpenSCAD][drawing-lines-in-openscad]]:
 
-#+name: airbrush-dais/line
+#+name: airbrush-dais--line
 #+begin_src scad :results none
 // An application of the minimum rotation
 // Given to points p0 and p1, draw a thin cylinder with its
@@ -41,9 +41,9 @@ module line(start, end, diameter = 1) {
 }
 #+end_src
 
-#+name: airbrush-dais/line-test
+#+name: airbrush-dais--line-test
 #+begin_src scad :file line-test.png :noweb yes :cmdline --autocenter
-<<airbrush-dais/line>>
+<<airbrush-dais--line>>
 
 line([10, 10, 10], [20, 20, 10], diameter=12);
 // Generate the polygonal points for the knot path
@@ -56,11 +56,11 @@ for(i=[1:len(knot)-1])
     line(knot[i-1], knot[i], diameter=5);
 #+end_src
 
-#+RESULTS: airbrush-dais/line-test
+#+RESULTS: airbrush-dais--line-test
 [[file:line-test.png]]
 ** Face
 
-#+name: airbrush-dais/face
+#+name: airbrush-dais--face
 #+begin_src scad :results none
 module face(x, y, side) {
   faceSize = 10;
@@ -72,9 +72,9 @@ module face(x, y, side) {
 #+end_src
 ** Box Unfold
 
-#+name: airbrush-dais/box-unfold
+#+name: airbrush-dais--box-unfold
 #+begin_src scad :results none :noweb yes
-<<airbrush-dais/face>>
+<<airbrush-dais--face>>
 module boxUnfold() {
   rotate([0, 0, -90])
     translate([-20, 20, 0])
@@ -91,9 +91,9 @@ module boxUnfold() {
 
 ** Wave
 
-#+name: airbrush-dais/wave
+#+name: airbrush-dais--wave
 #+begin_src scad :results none :noweb yes
-<<airbrush-dais/line>>
+<<airbrush-dais--line>>
 
 module wave(amplitude = 5, length = 0.11, degrees = 360, offset = 0, c = "red") {
   points = [for(i=[0:1:degrees])
@@ -123,14 +123,14 @@ can all be continuous motion.
 Imagine a box model to paint. If we could unfold and flatten the model, we'd end
 up with a shape like this:
 
-#+name: airbrush-dais/box-unfolded
+#+name: airbrush-dais--box-unfolded
 #+begin_src scad :file box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
-<<airbrush-dais/box-unfold>>
+<<airbrush-dais--box-unfold>>
 
 boxUnfold();
 #+end_src
 
-#+RESULTS: airbrush-dais/box-unfolded
+#+RESULTS: airbrush-dais--box-unfolded
 [[file:box-unfolded-painted-02.png]]
 
 
@@ -139,16 +139,16 @@ done, we could trace a path along it roughly as below. For our purposes we are
 not painting the bottom. The top will be covered by a larger magnitude of the
 wave, but it is difficult to show that in this example.
 
-#+name: airbrush-dais/box-unfolded-painted-01
+#+name: airbrush-dais--box-unfolded-painted-01
 #+begin_src scad :file box-unfolded-painted-01.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
-<<airbrush-dais/box-unfold>>
-<<airbrush-dais/wave>>
+<<airbrush-dais--box-unfold>>
+<<airbrush-dais--wave>>
 
 boxUnfold();
 wave();
 #+end_src
 
-#+RESULTS: airbrush-dais/box-unfolded-painted-01
+#+RESULTS: airbrush-dais--box-unfolded-painted-01
 [[file:box-unfolded-painted-01.png]]
 
 
@@ -160,10 +160,10 @@ looping.
 In the example below, this is one path the model would be painted in as it loops
 over
 
-#+name: airbrush-dais/box-unfolded-painted-02
+#+name: airbrush-dais--box-unfolded-painted-02
 #+begin_src scad :file box-unfolded-painted-02.png :noweb yes :cmdline --projection=o --camera=0,0,300,40,0,0 --debug=Cam
-<<airbrush-dais/box-unfold>>
-<<airbrush-dais/wave>>
+<<airbrush-dais--box-unfold>>
+<<airbrush-dais--wave>>
 
 translate([0, 40, 0]) {
   boxUnfold();
@@ -174,12 +174,10 @@ translate([0, 40, 0]) {
   waveLength=1.0 / 15.0;
   degrees = 2000;
   wave(length=waveLength, degrees=degrees);
-  /* wave(length=waveLength, degrees=degrees, offset=90, c="blue"); */
-  /* wave(length=waveLength, degrees=degrees, offset=180, c="green"); */
 }
 #+end_src
 
-#+RESULTS: airbrush-dais/box-unfolded-painted-02
+#+RESULTS: airbrush-dais--box-unfolded-painted-02
 [[file:box-unfolded-painted-02.png]]
 
 The below example is similar but overlaps the lines rather than laying out a
@@ -188,10 +186,10 @@ green lines are the same path but represent a loop between the 1 and 6 faces, or
 a lap around the entire cube. Red is before the loop, blue is the first loop,
 and green is the second lap.
 
-#+name: airbrush-dais/box-unfolded-painted-03
+#+name: airbrush-dais--box-unfolded-painted-03
 #+begin_src scad :file box-unfolded-painted-03.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
-<<airbrush-dais/box-unfold>>
-<<airbrush-dais/wave>>
+<<airbrush-dais--box-unfold>>
+<<airbrush-dais--wave>>
 
 boxUnfold();
 waveLength=1.0 / 15.0;
@@ -201,7 +199,7 @@ wave(length=waveLength, degrees=degrees, offset=90, c="blue");
 wave(length=waveLength, degrees=degrees, offset=180, c="green");
 #+end_src
 
-#+RESULTS: airbrush-dais/box-unfolded-painted-03
+#+RESULTS: airbrush-dais--box-unfolded-painted-03
 [[file:box-unfolded-painted-03.png]]
 
 This approach means that there will be over-paint applied in some places. Maybe
