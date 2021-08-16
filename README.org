@@ -1,0 +1,40 @@
+#+title:     Airbrush Dais
+#+author:    Logan Barnett-Hoy
+#+email:     logustus@gmail.com
+#+date:      <2021-08-16 Mon>
+#+language:  en
+#+file_tags:
+#+tags:
+
+A robotic dais which uses an airbrush to paint miniatures.
+
+* Design Considerations
+** Colors and Coverage
+
+Spray cans are disposable (creating unnecessary waste), and require outdoor
+access, ideal weather conditions, can get rather expensive, and sometimes
+require ID to purchase depending on your jurisdiction.
+
+Using airbrush based primers and base coats is superior in many of these
+regards, but is time consuming compared to spray cans.
+
+The primary purpose of this machine is to provide a primer and/or base coat. As
+such, it will only work with one paint at a time. Additional colors would likely
+add prohibitive complexity to this machine as a simply hobby project.
+
+** Details and Concavity
+
+The airbrush dais will assume a roughly hemispherical shape for the model being
+painted. Concave sections and high detail surfaces might not get ideal coverage.
+This is a machine for doing bulk work, not high detail.
+
+** Mechanical complexity preferred over electrical complexity
+
+Generally speaking it is quicker, less costly, and simpler on the assembler to
+prefer 3D printed parts over electronics and circuitry.
+** Fixed Airbrush Position and Model Weight
+
+The airbrush contains runny paint which can easily be spilled. It also is
+connected to the air pump. To prevent spills, tangles, and worse, we should fix
+the position of the airbrush. We should also assume the models we are printing
+are light enough for a moving dais to easily accommodate.
