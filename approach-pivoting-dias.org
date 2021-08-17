@@ -42,7 +42,7 @@ module line(start, end, diameter = 1) {
 #+end_src
 
 #+name: airbrush-dais--line-test
-#+begin_src scad :file line-test.png :noweb yes :cmdline --autocenter
+#+begin_src scad :file ./line-test.png :noweb yes :cmdline --autocenter
 <<airbrush-dais--line>>
 
 line([10, 10, 10], [20, 20, 10], diameter=12);
@@ -57,7 +57,7 @@ for(i=[1:len(knot)-1])
 #+end_src
 
 #+RESULTS: airbrush-dais--line-test
-[[file:line-test.png]]
+[[file:./line-test.png]]
 ** Face
 
 #+name: airbrush-dais--face
