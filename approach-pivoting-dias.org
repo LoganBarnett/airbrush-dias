@@ -209,3 +209,10 @@ module wave(amplitude = 5, length = 0.11, degrees = 360, offset = 0, c = "red") 
         line(points[i-1], points[i], diameter=0.5);
 }
 #+end_src
+
+
+* COMMENT settings and notes
+
+Use =--debug=Cam= as an argument to =openscad= to debug camera issues (such as
+camera arguments). You'll need to cause a syntax error, but the camera issues
+will be printed first.
