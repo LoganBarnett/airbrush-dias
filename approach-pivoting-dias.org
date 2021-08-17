@@ -125,7 +125,7 @@ Imagine a box model to paint. If we could unfold and flatten the model, we'd end
 up with a shape like this:
 
 #+name: airbrush-dais--box-unfolded
-#+begin_src scad :file ./images/box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
+#+begin_src scad :file ./images/box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam :export both
 <<airbrush-dais--box-unfold>>
 
 boxUnfold();
