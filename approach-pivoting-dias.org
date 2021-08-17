@@ -42,7 +42,7 @@ module line(start, end, diameter = 1) {
 #+end_src
 
 #+name: airbrush-dais--line-test
-#+begin_src scad :file ./line-test.png :noweb yes :cmdline --autocenter
+#+begin_src scad :file ./images/line-test.png :noweb yes :cmdline --autocenter
 <<airbrush-dais--line>>
 
 line([10, 10, 10], [20, 20, 10], diameter=12);
@@ -57,7 +57,7 @@ for(i=[1:len(knot)-1])
 #+end_src
 
 #+RESULTS: airbrush-dais--line-test
-[[file:./line-test.png]]
+[[file:./images/line-test.png]]
 ** Face
 
 #+name: airbrush-dais--face
@@ -70,6 +70,7 @@ module face(x, y, side) {
   }
 }
 #+end_src
+
 ** Box Unfold
 
 #+name: airbrush-dais--box-unfold
@@ -124,14 +125,14 @@ Imagine a box model to paint. If we could unfold and flatten the model, we'd end
 up with a shape like this:
 
 #+name: airbrush-dais--box-unfolded
-#+begin_src scad :file box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
+#+begin_src scad :file ./images/box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
 <<airbrush-dais--box-unfold>>
 
 boxUnfold();
 #+end_src
 
 #+RESULTS: airbrush-dais--box-unfolded
-[[file:box-unfolded-painted-02.png]]
+[[file:./images/box-unfolded.png]]
 
 
 If, while the dais rotates along its Z axis, an X axis sinusoidal rotation is
@@ -140,7 +141,7 @@ not painting the bottom. The top will be covered by a larger magnitude of the
 wave, but it is difficult to show that in this example.
 
 #+name: airbrush-dais--box-unfolded-painted-01
-#+begin_src scad :file box-unfolded-painted-01.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
+#+begin_src scad :file ./images/box-unfolded-painted-01.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
 <<airbrush-dais--box-unfold>>
 <<airbrush-dais--wave>>
 
@@ -149,7 +150,7 @@ wave();
 #+end_src
 
 #+RESULTS: airbrush-dais--box-unfolded-painted-01
-[[file:box-unfolded-painted-01.png]]
+[[file:./images/box-unfolded-painted-01.png]]
 
 
 Notice the bottom of 1 and 2 aren't covered, and neither are the tops of 5
@@ -161,7 +162,7 @@ In the example below, this is one path the model would be painted in as it loops
 over
 
 #+name: airbrush-dais--box-unfolded-painted-02
-#+begin_src scad :file box-unfolded-painted-02.png :noweb yes :cmdline --projection=o --camera=0,0,300,40,0,0 --debug=Cam
+#+begin_src scad :file ./images/box-unfolded-painted-02.png :noweb yes :cmdline --projection=o --camera=0,0,300,40,0,0 --debug=Cam
 <<airbrush-dais--box-unfold>>
 <<airbrush-dais--wave>>
 
@@ -178,7 +179,7 @@ translate([0, 40, 0]) {
 #+end_src
 
 #+RESULTS: airbrush-dais--box-unfolded-painted-02
-[[file:box-unfolded-painted-02.png]]
+[[file:./images/box-unfolded-painted-02.png]]
 
 The below example is similar but overlaps the lines rather than laying out a
 loop. The action is the same, but visualized differently. The red, blue, and
@@ -186,7 +187,7 @@ green lines are the same path but represent a loop between the 1 and 6 faces, or
 a lap around the entire cube. Red is before the loop, blue is the first loop,
 and green is the second lap.
 
-#+begin_src scad :file box-unfolded-painted-03.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
+#+begin_src scad :file ./images/box-unfolded-painted-03.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
 <<airbrush-dais--box-unfold>>
 <<airbrush-dais--wave>>
 
@@ -199,8 +200,7 @@ wave(length=waveLength, degrees=degrees, offset=180, c="green");
 #+end_src
 
 #+RESULTS:
-[[file:box-unfolded-painted-03.png]]
-
+[[file:./images/box-unfolded-painted-03.png]]
 
 This approach means that there will be over-paint applied in some places. Maybe
 we can design around that, or adjust our sine wave such that the loops provide
