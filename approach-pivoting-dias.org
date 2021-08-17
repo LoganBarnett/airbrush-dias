@@ -13,109 +13,11 @@ accomplish, so that design will be saved for last. The challenging part of the
 design is the X axis rotation. Similarly, the chassis will follow after the
 mechanical parts are done.
 
-* Basics
-We need some basic utilities to help out our diagrams and examples.
-** Line
-We need to be able to draw a line. From [[https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Tips_and_Tricks#Drawing_%22lines%22_in_OpenSCAD][drawing-lines-in-openscad]]:
-
-#+name: airbrush-dais--line
-#+begin_src scad :results none
-// An application of the minimum rotation
-// Given to points p0 and p1, draw a thin cylinder with its
-// bases at p0 and p1
-/* module line(p0, p1, diameter=1) { */
-/*   v = p1-p0; */
-/*   translate(p0) */
-/*     // rotate the cylinder so its z axis is brought to direction v */
-/*     multmatrix(rotate_from_to([0,0,1],v)) */
-/*     cylinder(d=diameter, h=norm(v), $fn=4); */
-/* } */
-
-// This is probably more expensive, but the other one doesn't work well - too
-// much spacing is required.
-module line(start, end, diameter = 1) {
-  hull() {
-    translate(start) sphere(diameter);
-    translate(end) sphere(diameter);
-  }
-}
-#+end_src
-
-#+name: airbrush-dais--line-test
-#+begin_src scad :file ./images/line-test.png :noweb yes :cmdline --autocenter
-<<airbrush-dais--line>>
-
-line([10, 10, 10], [20, 20, 10], diameter=12);
-// Generate the polygonal points for the knot path
-knot = [ for(i=[0:2:360])
-         [ (19*cos(3*i) + 40)*cos(2*i),
-           (19*cos(3*i) + 40)*sin(2*i),
-            19*sin(3*i) ] ];
-// Draw the polygonal a segment at a time
-for(i=[1:len(knot)-1])
-    line(knot[i-1], knot[i], diameter=5);
-#+end_src
-
-#+RESULTS: airbrush-dais--line-test
-[[file:./images/line-test.png]]
-** Face
-
-#+name: airbrush-dais--face
-#+begin_src scad :results none
-module face(x, y, side) {
-  faceSize = 10;
-  translate([x, y, 0]) {
-    translate([0, 0, 1]) color("black") text(side);
-    square(size = [ faceSize, faceSize ]);
-  }
-}
-#+end_src
-
-** Box Unfold
-
-#+name: airbrush-dais--box-unfold
-#+begin_src scad :results none :noweb yes
-<<airbrush-dais--face>>
-module boxUnfold() {
-  rotate([0, 0, -90])
-    translate([-20, 20, 0])
-    {
-      face(0, 0, "1");
-      face(10, 0, "2");
-      face(10, 10, "3");
-      face(10, -10, "4");
-      face(20, 0, "5");
-      face(30, 0, "6");
-    }
-}
-#+end_src
-
-** Wave
-
-#+name: airbrush-dais--wave
-#+begin_src scad :results none :noweb yes
-<<airbrush-dais--line>>
-
-module wave(amplitude = 5, length = 0.11, degrees = 360, offset = 0, c = "red") {
-  points = [for(i=[0:1:degrees])
-      [
-        i * length,
-        sin(i + offset) * amplitude,
-        1,
-      ]
-  ];
-
-  diameter = 0.5;
-  rotate([0, 0, -90])
-    translate([-20 + diameter, 20 + amplitude, 0])
-    color(c)
-      for(i=[1:2:degrees])
-        line(points[i-1], points[i], diameter=0.5);
-}
-#+end_src
-
 
 * X Axis Rotation
+#+PROPERTY: header-args :exports both :noweb yes
+
+** Sinusoidal Paint Coverage
 
 If we can create a sinusoidal motion along the X axis, we could paint the entire
 model without needing to have electronics that reverse, start and stop, etc. It
@@ -125,7 +27,7 @@ Imagine a box model to paint. If we could unfold and flatten the model, we'd end
 up with a shape like this:
 
 #+name: airbrush-dais--box-unfolded
-#+begin_src scad :file ./images/box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam :exports both
+#+begin_src scad :file ./images/box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0
 <<airbrush-dais--box-unfold>>
 
 boxUnfold();
@@ -205,3 +107,104 @@ wave(length=waveLength, degrees=degrees, offset=180, c="green");
 This approach means that there will be over-paint applied in some places. Maybe
 we can design around that, or adjust our sine wave such that the loops provide
 even coverage. Or maybe it just isn't a big deal. Something to be mindful of.
+
+** Basics
+We need some basic utilities to help out our diagrams and examples.
+*** Line
+We need to be able to draw a line. From [[https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Tips_and_Tricks#Drawing_%22lines%22_in_OpenSCAD][drawing-lines-in-openscad]]:
+
+#+name: airbrush-dais--line
+#+begin_src scad :results none
+// An application of the minimum rotation
+// Given to points p0 and p1, draw a thin cylinder with its
+// bases at p0 and p1
+/* module line(p0, p1, diameter=1) { */
+/*   v = p1-p0; */
+/*   translate(p0) */
+/*     // rotate the cylinder so its z axis is brought to direction v */
+/*     multmatrix(rotate_from_to([0,0,1],v)) */
+/*     cylinder(d=diameter, h=norm(v), $fn=4); */
+/* } */
+
+// This is probably more expensive, but the other one doesn't work well - too
+// much spacing is required.
+module line(start, end, diameter = 1) {
+  hull() {
+    translate(start) sphere(diameter);
+    translate(end) sphere(diameter);
+  }
+}
+#+end_src
+
+#+name: airbrush-dais--line-test
+#+begin_src scad :file ./images/line-test.png :noweb yes :cmdline --autocenter
+<<airbrush-dais--line>>
+
+line([10, 10, 10], [20, 20, 10], diameter=12);
+// Generate the polygonal points for the knot path
+knot = [ for(i=[0:2:360])
+         [ (19*cos(3*i) + 40)*cos(2*i),
+           (19*cos(3*i) + 40)*sin(2*i),
+            19*sin(3*i) ] ];
+// Draw the polygonal a segment at a time
+for(i=[1:len(knot)-1])
+    line(knot[i-1], knot[i], diameter=5);
+#+end_src
+
+#+RESULTS: airbrush-dais--line-test
+[[file:./images/line-test.png]]
+*** Face
+
+#+name: airbrush-dais--face
+#+begin_src scad :results none
+module face(x, y, side) {
+  faceSize = 10;
+  translate([x, y, 0]) {
+    translate([0, 0, 1]) color("black") text(side);
+    square(size = [ faceSize, faceSize ]);
+  }
+}
+#+end_src
+
+*** Box Unfold
+
+#+name: airbrush-dais--box-unfold
+#+begin_src scad :results none :noweb yes
+<<airbrush-dais--face>>
+module boxUnfold() {
+  rotate([0, 0, -90])
+    translate([-20, 20, 0])
+    {
+      face(0, 0, "1");
+      face(10, 0, "2");
+      face(10, 10, "3");
+      face(10, -10, "4");
+      face(20, 0, "5");
+      face(30, 0, "6");
+    }
+}
+#+end_src
+
+*** Wave
+
+#+name: airbrush-dais--wave
+#+begin_src scad :results none :noweb yes
+<<airbrush-dais--line>>
+
+module wave(amplitude = 5, length = 0.11, degrees = 360, offset = 0, c = "red") {
+  points = [for(i=[0:1:degrees])
+      [
+        i * length,
+        sin(i + offset) * amplitude,
+        1,
+      ]
+  ];
+
+  diameter = 0.5;
+  rotate([0, 0, -90])
+    translate([-20 + diameter, 20 + amplitude, 0])
+    color(c)
+      for(i=[1:2:degrees])
+        line(points[i-1], points[i], diameter=0.5);
+}
+#+end_src
