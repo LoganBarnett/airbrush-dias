@@ -15,7 +15,8 @@ mechanical parts are done.
 
 
 * X Axis Rotation
-#+PROPERTY: header-args :exports both :noweb yes
+# These don't work in github exports. Need to do them by hand.
+# #+PROPERTY: header-args :exports both :noweb yes
 
 ** Sinusoidal Paint Coverage
 
@@ -27,7 +28,7 @@ Imagine a box model to paint. If we could unfold and flatten the model, we'd end
 up with a shape like this:
 
 #+name: airbrush-dais--box-unfolded
-#+begin_src scad :file ./images/box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0
+#+begin_src scad :file ./images/box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
 <<airbrush-dais--box-unfold>>
 
 boxUnfold();
@@ -43,7 +44,7 @@ not painting the bottom. The top will be covered by a larger magnitude of the
 wave, but it is difficult to show that in this example.
 
 #+name: airbrush-dais--box-unfolded-painted-01
-#+begin_src scad :file ./images/box-unfolded-painted-01.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
+#+begin_src scad :file ./images/box-unfolded-painted-01.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
 <<airbrush-dais--box-unfold>>
 <<airbrush-dais--wave>>
 
@@ -64,7 +65,7 @@ In the example below, this is one path the model would be painted in as it loops
 over
 
 #+name: airbrush-dais--box-unfolded-painted-02
-#+begin_src scad :file ./images/box-unfolded-painted-02.png :noweb yes :cmdline --projection=o --camera=0,0,300,40,0,0 --debug=Cam
+#+begin_src scad :file ./images/box-unfolded-painted-02.png :noweb yes :cmdline --projection=o --camera=0,0,300,40,0,0 :exports both
 <<airbrush-dais--box-unfold>>
 <<airbrush-dais--wave>>
 
@@ -89,7 +90,7 @@ green lines are the same path but represent a loop between the 1 and 6 faces, or
 a lap around the entire cube. Red is before the loop, blue is the first loop,
 and green is the second lap.
 
-#+begin_src scad :file ./images/box-unfolded-painted-03.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 --debug=Cam
+#+begin_src scad :file ./images/box-unfolded-painted-03.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
 <<airbrush-dais--box-unfold>>
 <<airbrush-dais--wave>>
 
@@ -137,7 +138,7 @@ module line(start, end, diameter = 1) {
 #+end_src
 
 #+name: airbrush-dais--line-test
-#+begin_src scad :file ./images/line-test.png :noweb yes :cmdline --autocenter
+#+begin_src scad :file ./images/line-test.png :noweb yes :cmdline --autocenter :exports both
 <<airbrush-dais--line>>
 
 line([10, 10, 10], [20, 20, 10], diameter=12);
