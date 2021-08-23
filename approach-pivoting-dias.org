@@ -6,6 +6,10 @@
 #+file_tags:
 #+tags:
 
+* Approach - Pivoting Dais
+:PROPERTIES:
+:header-args: :output-dir ./images/ :file-ext png
+:END:
 In this approach, the dais pivots around two central axes.
 
 Rotating the dais along its Y axis should be a relatively easy feat to
@@ -13,12 +17,9 @@ accomplish, so that design will be saved for last. The challenging part of the
 design is the X axis rotation. Similarly, the chassis will follow after the
 mechanical parts are done.
 
+** Sinusoidal X Axis Rotation
 
-* X Axis Rotation
-# These don't work in github exports. Need to do them by hand.
-# #+PROPERTY: header-args :exports both :noweb yes
-
-** Sinusoidal Paint Coverage
+*** Sinusoidal Paint Coverage
 
 If we can create a sinusoidal motion along the X axis, we could paint the entire
 model without needing to have electronics that reverse, start and stop, etc. It
@@ -27,34 +28,32 @@ can all be continuous motion.
 Imagine a box model to paint. If we could unfold and flatten the model, we'd end
 up with a shape like this:
 
-#+name: airbrush-dais--box-unfolded
-#+begin_src scad :file ./images/box-unfolded.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
-<<airbrush-dais--box-unfold>>
+#+name: box-unfolded
+#+begin_src scad :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
+<<box-unfold>>
 
 boxUnfold();
 #+end_src
 
-#+RESULTS: airbrush-dais--box-unfolded
+#+RESULTS: box-unfolded
 [[file:./images/box-unfolded.png]]
-
 
 If, while the dais rotates along its Z axis, an X axis sinusoidal rotation is
 done, we could trace a path along it roughly as below. For our purposes we are
 not painting the bottom. The top will be covered by a larger magnitude of the
 wave, but it is difficult to show that in this example.
 
-#+name: airbrush-dais--box-unfolded-painted-01
-#+begin_src scad :file ./images/box-unfolded-painted-01.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
-<<airbrush-dais--box-unfold>>
-<<airbrush-dais--wave>>
+#+name: box-unfolded-painted-01
+#+begin_src scad :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
+<<box-unfold>>
+<<wave>>
 
 boxUnfold();
 wave();
 #+end_src
 
-#+RESULTS: airbrush-dais--box-unfolded-painted-01
+#+RESULTS: box-unfolded-painted-01
 [[file:./images/box-unfolded-painted-01.png]]
-
 
 Notice the bottom of 1 and 2 aren't covered, and neither are the tops of 5
 and 6. If we have additional, full X rotations, extend the wave length, and
@@ -64,10 +63,10 @@ looping.
 In the example below, this is one path the model would be painted in as it loops
 over
 
-#+name: airbrush-dais--box-unfolded-painted-02
-#+begin_src scad :file ./images/box-unfolded-painted-02.png :noweb yes :cmdline --projection=o --camera=0,0,300,40,0,0 :exports both
-<<airbrush-dais--box-unfold>>
-<<airbrush-dais--wave>>
+#+name: box-unfolded-painted-02
+#+begin_src scad :noweb yes :cmdline --projection=o --camera=0,0,300,40,0,0 :exports both
+<<box-unfold>>
+<<wave>>
 
 translate([0, 40, 0]) {
   boxUnfold();
@@ -81,7 +80,7 @@ translate([0, 40, 0]) {
 }
 #+end_src
 
-#+RESULTS: airbrush-dais--box-unfolded-painted-02
+#+RESULTS: box-unfolded-painted-02
 [[file:./images/box-unfolded-painted-02.png]]
 
 The below example is similar but overlaps the lines rather than laying out a
@@ -90,9 +89,9 @@ green lines are the same path but represent a loop between the 1 and 6 faces, or
 a lap around the entire cube. Red is before the loop, blue is the first loop,
 and green is the second lap.
 
-#+begin_src scad :file ./images/box-unfolded-painted-03.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
-<<airbrush-dais--box-unfold>>
-<<airbrush-dais--wave>>
+#+begin_src scad :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
+<<box-unfold>>
+<<wave>>
 
 boxUnfold();
 waveLength=1.0 / 15.0;
@@ -112,10 +111,10 @@ even coverage. Or maybe it just isn't a big deal. Something to be mindful of.
 We can also use a really long wrap, which ensures even coverage but requires we
 reset everything once painting is done.
 
-#+name: airbrush-dais--box-unfolded-painted-04
-#+begin_src scad :file ./images/box-unfolded-painted-04.png :noweb yes :cmdline --projection=o --camera=0,0,300,40,0,0 :exports both
-<<airbrush-dais--box-unfold>>
-<<airbrush-dais--line>>
+#+name: box-unfolded-painted-04
+#+begin_src scad :noweb yes :cmdline --projection=o --camera=0,0,300,40,0,0 :exports both
+<<box-unfold>>
+<<line>>
 
 translate([0, 40, 0]) {
   boxUnfold();
@@ -130,16 +129,16 @@ translate([0, 40, 0]) {
 }
 #+end_src
 
-#+RESULTS: airbrush-dais--box-unfolded-painted-04
+#+RESULTS: box-unfolded-painted-04
 [[file:./images/box-unfolded-painted-04.png]]
 
 With the looped version looking like this:
 
 
-#+name: airbrush-dais--box-unfolded-painted-05
-#+begin_src scad :file ./images/box-unfolded-painted-05.png :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
-<<airbrush-dais--box-unfold>>
-<<airbrush-dais--line>>
+#+name: box-unfolded-painted-05
+#+begin_src scad :noweb yes :cmdline --projection=o --camera=0,0,100,20,0,0 :exports both
+<<box-unfold>>
+<<line>>
 
 translate([0, 40, 0]) {
   boxUnfold();
@@ -147,19 +146,21 @@ translate([0, 40, 0]) {
     for(i=[0:1:2])
       color(colors[i])
         line([3*(i+1)+20, 20, 1], [3*i+20, -100, 1], diameter=0.5);
-
 }
 #+end_src
 
-#+RESULTS: airbrush-dais--box-unfolded-painted-05
+#+RESULTS: box-unfolded-painted-05
 [[file:./images/box-unfolded-painted-05.png]]
+*** Machinery Required
 
-** Basics
+The number of loops we do around the model depends upon the model size.
+
+** Basic Utilities
 We need some basic utilities to help out our diagrams and examples.
-*** Line
+**** Line
 We need to be able to draw a line. From [[https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Tips_and_Tricks#Drawing_%22lines%22_in_OpenSCAD][drawing-lines-in-openscad]]:
 
-#+name: airbrush-dais--line
+#+name: line
 #+begin_src scad :results none
 // An application of the minimum rotation
 // Given to points p0 and p1, draw a thin cylinder with its
@@ -182,9 +183,9 @@ module line(start, end, diameter = 1) {
 }
 #+end_src
 
-#+name: airbrush-dais--line-test
-#+begin_src scad :file ./images/line-test.png :noweb yes :cmdline --autocenter :exports both
-<<airbrush-dais--line>>
+#+name: line-test
+#+begin_src scad :noweb yes :cmdline --autocenter :exports both
+<<line>>
 
 line([10, 10, 10], [20, 20, 10], diameter=12);
 // Generate the polygonal points for the knot path
@@ -197,11 +198,11 @@ for(i=[1:len(knot)-1])
     line(knot[i-1], knot[i], diameter=5);
 #+end_src
 
-#+RESULTS: airbrush-dais--line-test
+#+RESULTS: line-test
 [[file:./images/line-test.png]]
-*** Face
+**** Face
 
-#+name: airbrush-dais--face
+#+name: face
 #+begin_src scad :results none
 module face(x, y, side) {
   faceSize = 10;
@@ -212,11 +213,11 @@ module face(x, y, side) {
 }
 #+end_src
 
-*** Box Unfold
+**** Box Unfold
 
-#+name: airbrush-dais--box-unfold
+#+name: box-unfold
 #+begin_src scad :results none :noweb yes
-<<airbrush-dais--face>>
+<<face>>
 module boxUnfold() {
   rotate([0, 0, -90])
     translate([-20, 20, 0])
@@ -231,11 +232,11 @@ module boxUnfold() {
 }
 #+end_src
 
-*** Wave
+**** Wave
 
-#+name: airbrush-dais--wave
+#+name: wave
 #+begin_src scad :results none :noweb yes
-<<airbrush-dais--line>>
+<<line>>
 
 module wave(amplitude = 5, length = 0.11, degrees = 360, offset = 0, c = "red") {
   points = [for(i=[0:1:degrees])
