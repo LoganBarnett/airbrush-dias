@@ -108,6 +108,32 @@ This approach means that there will be over-paint applied in some places. Maybe
 we can design around that, or adjust our sine wave such that the loops provide
 even coverage. Or maybe it just isn't a big deal. Something to be mindful of.
 
+*** Achieving Sinusoidal Motion
+
+One of the ways to achieve this is via sun and planet gears. The planet gear
+revolves around the sun gear. The planet gear's position changes, but the
+rotation is fixed. The sun gear's position is fixed, but the rotation changes. A
+shaft is affixed to the planet gear. Typically this shaft would then go to a
+piston. In this case it needs to go to our dais.
+
+Both the sun and the planet can be the same size, though varying this might
+achieve different ratios of motion.
+
+#+begin_src scad :results none
+module sun() {
+ cylinder();
+}
+#+end_src
+
+#+begin_src scad :file sun-and-planet-01.png
+
+#+end_src
+
+
+
+** Linear X Axis Rotation
+
+*** Painting Paths Along the Model
 We can also use a really long wrap, which ensures even coverage but requires we
 reset everything once painting is done.
 
